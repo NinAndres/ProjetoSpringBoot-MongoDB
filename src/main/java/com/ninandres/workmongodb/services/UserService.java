@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ninandres.workmongodb.domain.User;
+import com.ninandres.workmongodb.dto.UserDTO;
 import com.ninandres.workmongodb.repository.UserRepository;
 import com.ninandres.workmongodb.services.exception.ObjectNotFoundException;
 
@@ -23,5 +24,13 @@ public class UserService {
   public User findById(String id) {
     Optional<User> user = repo.findById(id);
     return user.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+  }
+
+  public User insert(User obj) {
+    return repo.insert(obj);
+  }
+
+  public User fromDTO(UserDTO objDto) {
+    return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
   }
 }
